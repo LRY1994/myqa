@@ -14,5 +14,11 @@ tar -xzvf "wikidata5m_transductive.tar.gz" -C  "./data"
 gzip -cd "wikidata5m_text.txt.gz" > "./data/wikidata5m_text.txt"
 tar -xzvf "wikidata5m_alias.tar.gz" -C  "./data"
 
+# covert wikidata5m_text.txt to drqa required format
+python preprocess.py
 
+# Storing the Documents
+python ./drqa/build_db.py './data/text.txt' './data/text_db.db'
 
+# Building the TF-IDF N-grams
+python ./drqa/build_tfidf.py './data/text_db.db' './data/'
